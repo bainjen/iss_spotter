@@ -30,7 +30,6 @@ const fetchMyIP = function (callback) {
 
 }
 
-// fetchMyIP();
 //++++++++++++++++++++++++++++++++++++++++++++++
 
 
@@ -52,7 +51,29 @@ const fetchCoordsByIP = function(ip, callback) {
   });
 };
 
-module.exports = { fetchMyIP, fetchCoordsByIP };
+//++++++++++++++++++++++++++++++++++++++++++++++
+
+const fetchISSFlyOverTimes = function (coords, callback) {
+  const coordsURL = `http://api.open-notify.org/iss-pass.json?lat=${coords.latitude}&lon=${coords.longitude}`
+
+  request(coordsURL, (error, response, body) => {
+    if (error) {
+      callback(error, null);
+      return;
+    }
+    if (response.statusCode !== 200) {
+      callback(Error(`Status Code ${response.statusCode} when fetching Coordinates for IP: ${body}`), null);
+      return;
+    }
+    const passes = JSON.parse(body).response;
+    callback(null, passes);
+  }) 
+
+}
+
+
+module.exports = { fetchMyIP, fetchCoordsByIP, fetchISSFlyOverTimes };
+
 
 // const fetchCoordsByIP = function (ip, callback) {
 //   const coordsObj = 'https://ipvigilante.com/json/';
