@@ -10,10 +10,10 @@
 //++++++++++++++=++++++++++++++++++++++++
 const request = require('request');
 
-const fetchMyIP = function (callback) {
-  const ip = 'https://api.ipify.org?format=json';
+const fetchMyIP = function(callback) {
+  const api = 'https://api.ipify.org?format=json';
 
-  request(api, function (error, response, body) {
+  request(api, function(error, response, body) {
     if (error) {
       return callback(error, null);
     }
@@ -26,9 +26,9 @@ const fetchMyIP = function (callback) {
 
     const ip = JSON.parse(body).ip;
     callback(null, ip);
-  })
+  });
 
-}
+};
 
 //++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -39,22 +39,22 @@ const fetchCoordsByIP = function(ip, callback) {
       callback(error, null);
       return;
     }
-    
+
     if (response.statusCode !== 200) {
       callback(Error(`Status Code ${response.statusCode} when fetching Coordinates for IP: ${body}`), null);
       return;
     }
-    
+
     const { latitude, longitude } = JSON.parse(body).data;
-    
+
     callback(null, { latitude, longitude });
   });
 };
 
 //++++++++++++++++++++++++++++++++++++++++++++++
 
-const fetchISSFlyOverTimes = function (coords, callback) {
-  const coordsURL = `http://api.open-notify.org/iss-pass.json?lat=${coords.latitude}&lon=${coords.longitude}`
+const fetchISSFlyOverTimes = function(coords, callback) {
+  const coordsURL = `http://api.open-notify.org/iss-pass.json?lat=${coords.latitude}&lon=${coords.longitude}`;
 
   request(coordsURL, (error, response, body) => {
     if (error) {
@@ -67,9 +67,9 @@ const fetchISSFlyOverTimes = function (coords, callback) {
     }
     const passes = JSON.parse(body).response;
     callback(null, passes);
-  }) 
+  });
 
-}
+};
 
 
 module.exports = { fetchMyIP, fetchCoordsByIP, fetchISSFlyOverTimes };
@@ -87,7 +87,7 @@ module.exports = { fetchMyIP, fetchCoordsByIP, fetchISSFlyOverTimes };
 //   })
 
 
-  
+
 //   if (response.statusCode !== 200) {
 //     const msg = `Status Code ${response.statusCode} when fetching coordinates for IP. Response: ${body}`;
 //     callback(Error(msg), null);
@@ -98,7 +98,7 @@ module.exports = { fetchMyIP, fetchCoordsByIP, fetchISSFlyOverTimes };
 //   callback(null, {latitude, longitude});
 
 // }
-  
+
 
 // fetchCoordsByIP();
 // https://ipvigilante.com/{format}/{IP}/{params}

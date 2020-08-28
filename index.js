@@ -22,10 +22,10 @@ const { fetchISSFlyOverTimes } = require('./iss');
 //   console.log('It worked! Returned Coords:' , coords);
 // });
 
-fetchISSFlyOverTimes({ latitude: '49.27670', longitude: '-123.13000' }, (error, times) => {
-  if (error) {
-    console.log("It didn't work!", error);
-    return;
-  }
-  console.log("It worked! returned times: ", times);
-});
+// fetchISSFlyOverTimes({ latitude: '49.27670', longitude: '-123.13000' }, (error, times) => {
+//   if (error) {
+//     console.log("It didn't work!", error);
+//     return;
+//   }
+//   console.log("It worked! returned times: ", times);
+// });
